@@ -37,28 +37,20 @@ public class Transacciones {
             generator = "primary_sequence"
     )
     private Long id;
-
     @Column(nullable = false)
     private LocalDate fecha;
-
     @Column(nullable = false)
     private Double cantidad;
-
     @Column(nullable = false)
     private String tipotrans;
-
     @Column(nullable = false)
     private String cuentaorigen;
-
     @Column(nullable = false)
     private String cuentadestino;
-
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private OffsetDateTime dateCreated;
-
     @LastModifiedDate
     @Column(nullable = false)
     private OffsetDateTime lastUpdated;
-
 }
