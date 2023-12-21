@@ -17,10 +17,17 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import java.beans.PropertyEditor;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.HashMap;
 
 @Configuration
 @EnableBatchProcessing
@@ -32,18 +39,27 @@ public class BatchConfiguration {
     private JobRepository jobRepository;
     @Autowired
     private PlatformTransactionManager platformTransactionManager;
+
     @Bean
     public FlatFileItemReader<Transacciones> reader() {
         FlatFileItemReader<Transacciones> reader = new FlatFileItemReader<>();
-        reader.setResource(new FileSystemResource("path/to/your/csv/file.csv"));
-        reader.setLineMapper(new DefaultLineMapper<Transacciones>() {{
-            setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[] { "id", "fecha", "cantidad", "tipoTrans", "cuentaOrigen", "cuentaDestino", "dateCreated", "lastUpdated" });
-            }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<Transacciones>() {{
-                setTargetType(Transacciones.class);
-            }});
-        }});
+        reader.setResource(new FileSystemResource("src/main/resources/transacciones_aleatorias.csv"));
+
+        // Configura el LineMapper
+        DefaultLineMapper<Transacciones> lineMapper = new DefaultLineMapper<>();
+        DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer();
+        tokenizer.setNames(new String[] { "id", "fecha", "cantidad", "tipoTrans", "cuentaOrigen", "cuentaDestino"});
+        lineMapper.setLineTokenizer(tokenizer);
+
+        // Configura el FieldSetMapper con editores de propiedades personalizados
+        BeanWrapperFieldSetMapper<Transacciones> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
+        fieldSetMapper.setTargetType(Transacciones.class);
+        HashMap<Class, PropertyEditor> customEditors = new HashMap<>();
+        customEditors.put(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), false));
+        fieldSetMapper.setCustomEditors(customEditors);
+        lineMapper.setFieldSetMapper(fieldSetMapper);
+
+        reader.setLineMapper(lineMapper);
         return reader;
     }
 

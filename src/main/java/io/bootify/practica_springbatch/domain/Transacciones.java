@@ -10,6 +10,8 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -38,7 +40,7 @@ public class Transacciones {
     )
     private Long id;
     @Column(nullable = false)
-    private LocalDate fecha;
+    private Date fecha;
     @Column(nullable = false)
     private Double cantidad;
     @Column(nullable = false)
