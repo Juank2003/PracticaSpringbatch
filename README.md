@@ -1,5 +1,36 @@
 # PracticaSpringbatch
 
+## Mi repositorio: https://github.com/Juank2003/PracticaSpringbatch.git
+
+## Enunciado:
+### Objetivo:
+
+El objetivo de esta práctica es desarrollar una aplicación de procesamiento por batchs, utilizando la programación concurrente para optimizar el rendimiento y minimizar el tiempo de procesamiento.
+
+El programa deberá leer un gran volumen de datos, procesar estos datos de manera eficiente utilizando programación concurrente y, finalmente, almacenar los datos procesados. El contexto de los datos será definido a continuación.
+
+### Contexto:
+
+Imaginemos que somos parte de una gran organización que maneja una enorme cantidad de datos de transacciones bancarias. Estos datos son almacenados en archivos planos y se necesita un programa que pueda procesar estos datos por la noche, cuando la base de datos no está bloqueada por otras tareas.
+
+Además, se necesita que el programa pueda reanudar el trabajo en caso de fallos y sea capaz de manejar transacciones. Cada transacción constará de un lote de procesamiento de datos, por ejemplo, una confirmación cada 5,000 inserciones.
+
+El programa deberá estar construido de tal manera que pueda dividirse en pequeñas tareas que se ejecuten en secuencia, generando flujos de trabajo, de modo similar a los microservicios.
+
+### Detalles del Proyecto:
+
+El programa deberá implementar las siguientes funciones:
+
+Leer los datos del archivo de transacciones bancarias.
+- Procesar los datos utilizando programación concurrente. Esta etapa deberá incluir la validación de datos y el procesamiento y cálculos sobre los datos.
+- Almacenar los datos procesados en la base de datos.
+- Implementar un programador que encadene las tareas y administre las operaciones de flujo.
+### Recursos:
+
+Para realizar esta práctica, se sugiere utilizar Java con el framework Spring Batch debido a su eficacia para el procesamiento por batchs. No obstante, puedes elegir el lenguaje de programación y las herramientas que prefieras, siempre que permitan la programación concurrente y sean adecuados para el procesamiento por batchs.
+
+Se proporcionará un conjunto de datos de transacciones bancarias ficticias para fines de prueba.
+
 This app was created with Bootify.io - tips on working with the code [can be found here](https://bootify.io/next-steps/).
 Feel free to contact us for further questions.
 
